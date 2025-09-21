@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\User;          // <-- ¡IMPORTACIÓN OBLIGATORIA!
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class PropietarioController extends Controller
 {
-    /* Muestra el formulario de alta */
+    /* Muestra el formulario */
     public function create()
     {
         return view('admin.propietarios.create');
@@ -18,25 +18,25 @@ class PropietarioController extends Controller
     /* Guarda el propietario */
     public function store(Request $request)
     {
-        // Validaciones básicas
+        // Validaciones
         $request->validate([
-            'apartamento' => 'required|unique:users,apartamento', // no repetir
-            'dni'         => 'required|unique:users,dni',         // cédula única
+            'apartamento' => 'required|unique:users,apartamento',
+            'dni'         => 'required|unique:users,dni',
         ]);
 
-        // Crear usuario (propietario)
+        // Crear usuario
         User::create([
-            'name'             => 'POR COMPLETAR',      // se llenará después
+            'name'             => 'POR COMPLETAR',
             'apellido'         => 'POR COMPLETAR',
             'dni'              => $request->dni,
-            'email'            => $request->dni.'@condo.com', // email provisional
-            'password'         => Hash::make('usuario123'),  // clave fija
+            'email'            => $request->dni . '@condo.com',
+            'password'         => Hash::make('usuario123'),
             'apartamento'      => $request->apartamento,
-            'perfil_completo'  => 0,           // obligará a completar datos
-            'es_jefe_familia'  => 1,           // es el titular del apartamento
+            'perfil_completo'  => 0,
+            'es_jefe_familia'  => 1,
         ]);
 
-        // Redirigir con mensaje
-        return back()->with('success', 'Propietario de '.$request->apartamento.' registrado. Cedula: '.$request->dni);
+        // Respuesta
+        return back()->with('success', 'Propietario de ' . $request->apartamento . ' guardado. Cédula: ' . $request->dni);
     }
 }
