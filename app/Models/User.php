@@ -63,3 +63,7 @@ class User extends Authenticatable
             ->implode('');
     }
 }
+
+
+// Este comentario fue agregado como prueba en la rama etapa-registro-demo
+// Este comentario fue agregado como prueba en la rama etapa-registro-demo
