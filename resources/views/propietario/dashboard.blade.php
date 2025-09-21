@@ -1,19 +1,12 @@
 {{-- resources/views/propietario/dashboard.blade.php --}}
 <x-layouts.app :title="__('Dashboard Propietario')">
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {{-- Título y bienvenida --}}
-        <div class="mb-6 flex items-center justify-between">
-            <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                Bienvenido, Propietario
-            </h1>
-            <span class="text-sm text-gray-500 dark:text-gray-400">
-                Apartamento: {{ auth()->user()->apartamento }}
-            </span>
-        </div>
+        <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+            Bienvenido, Propietario
+        </h1>
 
-        {{-- Tarjetas rápidas --}}
         <div class="grid gap-6 md:grid-cols-3">
-            {{-- Completar Perfil (opcional por ahora) --}}
+            {{-- Completar Perfil --}}
             <a href="{{ route('perfil.edit') }}"
                class="block p-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800 transition">
                 <div class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">✏️ Completar Perfil</div>
@@ -30,17 +23,7 @@
             {{-- Mi Apartamento --}}
             <div class="block p-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl">
                 <div class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">🏠 Mi Apartamento</div>
-                <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                    {{ auth()->user()->apartamento }}
-                </p>
-            </div>
-        </div>
-
-        {{-- Sección inferior (placeholder para futuros widgets) --}}
-        <div class="mt-8 relative h-64 rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            <div class="absolute inset-0 flex items-center justify-center text-neutral-500 dark:text-neutral-400">
-                Próximamente: avisos, reservas, etc.
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{{ auth()->user()->apartamento }}</p>
             </div>
         </div>
     </div>

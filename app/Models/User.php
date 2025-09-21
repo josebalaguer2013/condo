@@ -13,6 +13,12 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+public function perfil()
+{
+    return $this->hasOne(Perfil::class);
+}
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -66,5 +72,3 @@ class User extends Authenticatable
 }
 
 
-// Este comentario fue agregado como prueba en la rama etapa-registro-demo
-// Este comentario fue agregado como prueba en la rama etapa-registro-demo

@@ -29,3 +29,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/condo/admin/propietarios', [PropietarioController::class, 'store'])
          ->name('admin.propietarios.store');
 });
+
+
+/* Dashboard del propietario */
+Route::middleware(['auth'])->prefix('propietario')->group(function () {
+    Route::view('/dashboard', 'propietario.dashboard')->name('propietario.dashboard');
+});
+
+
+/* Área del propietario (sin forzar perfil por ahora) */
+Route::middleware(['auth'])->prefix('propietario')->group(function () {
+
+    Route::view('/dashboard', 'propietario.dashboard')->name('propietario.dashboard');
+
+    // Rutas de perfil (vacías por ahora, pero definidas)
+    Route::get('/perfil/edit',   [\App\Http\Controllers\Propietario\PerfilController::class, 'edit'])
+         ->name('perfil.edit');
+    Route::post('/perfil/update', [\App\Http\Controllers\Propietario\PerfilController::class, 'update'])
+         ->name('perfil.update');
+
+    // CRUD de integrantes/familiares
+    Route::resource('integrantes', \App\Http\Controllers\Propietario\IntegranteController::class);
+});

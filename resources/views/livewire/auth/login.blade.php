@@ -11,9 +11,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 
-new #[Layout('components.layouts.auth')] class extends Component {
-    #[Validate('required|string|email')]
-    public string $email = '';
+new #[Layout('components.layouts.auth')] class extends Component
+{
+    #[Validate('required|string|max:20')]
+    public string $dni = '';
 
     #[Validate('required|string')]
     public string $password = '';
@@ -29,18 +30,18 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        if (! Auth::attempt(['dni' => $this->dni, 'password' => $this->password], $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'dni' => __('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('propietario.dashboard', absolute: false), navigate: true);
     }
 
     /**
@@ -57,7 +58,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => __('auth.throttle', [
+            'dni' => __('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -69,7 +70,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->dni).'|'.request()->ip());
     }
 }; ?>
 
@@ -80,16 +81,16 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <x-auth-session-status class="text-center" :status="session('status')" />
 
     <form method="POST" wire:submit="login" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email address')"
-            type="email"
-            required
-            autofocus
-            autocomplete="email"
-            placeholder="email@example.com"
-        />
+       <!-- Cédula / DNI -->
+<flux:input
+    wire:model="dni"
+    label="Cédula"
+    type="text"
+    required
+    autofocus
+    autocomplete="username"
+    placeholder="12345678"
+/>
 
         <!-- Password -->
         <div class="relative">

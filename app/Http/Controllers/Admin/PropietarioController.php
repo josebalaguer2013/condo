@@ -29,7 +29,7 @@ class PropietarioController extends Controller
             'name'             => 'POR COMPLETAR',
             'apellido'         => 'POR COMPLETAR',
             'dni'              => $request->dni,
-            'email'            => $request->dni . '@condo.com',
+            'email'            => $request->dni . '@gmail.com',
             'password'         => Hash::make('usuario123'),
             'apartamento'      => $request->apartamento,
             'perfil_completo'  => 0,
