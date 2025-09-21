@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\Admin\PropietarioController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +21,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+/* --------- RUTAS DE ADMINISTRADOR --------- */
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/condo/admin/propietarios/create', [PropietarioController::class, 'create'])
+         ->name('admin.propietarios.create');
+    Route::post('/condo/admin/propietarios', [PropietarioController::class, 'store'])
+         ->name('admin.propietarios.store');
+});

@@ -11,8 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Registramos nuestro alias para usar 'admin' en rutas
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\IsAdmin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();   // <-- ¡ESTA LÍNEA ES OBLIGATORIA!
