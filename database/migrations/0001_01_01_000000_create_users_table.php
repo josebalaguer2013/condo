@@ -19,6 +19,16 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+// Campos adicionales para propietarios
+$table->string('apellido');
+$table->string('dni')->unique();
+$table->string('telefono')->nullable();
+
+
+
+
+
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
