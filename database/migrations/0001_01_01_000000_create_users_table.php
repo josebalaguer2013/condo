@@ -20,9 +20,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 // Campos adicionales para propietarios
-$table->string('apellido');
-$table->string('dni')->unique();
-$table->string('telefono')->nullable();
 
 
 
